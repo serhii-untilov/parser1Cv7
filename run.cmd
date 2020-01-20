@@ -1,0 +1,1 @@
+python parser1cv7.py -s inp\ -d outp\
