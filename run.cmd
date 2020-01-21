@@ -1,1 +1,1 @@
-python parser1cv7.py -s inp\ -d outp\
+python main.py -s inp\ -d outp\

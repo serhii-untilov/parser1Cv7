@@ -1,3 +1,4 @@
 env
 *.dbf
 *.csv
+*.pyc
