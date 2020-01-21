@@ -10,6 +10,7 @@ from src.hr_position import hr_position
 from src.hr_workSchedule import hr_workSchedule
 from src.hr_dictStaffCat import hr_dictStaffCat
 from src.hr_employee import hr_employee
+from src.hr_employeeNumber import hr_employeeNumber
 
 
 DESCRIPTION = '1C v7 parser'
@@ -48,3 +49,4 @@ if __name__ == '__main__':
     hr_workSchedule(namespace.src_path, namespace.dst_path)
     hr_dictStaffCat(namespace.src_path, namespace.dst_path)
     hr_employee(namespace.src_path, namespace.dst_path)
+    hr_employeeNumber(namespace.src_path, namespace.dst_path)
