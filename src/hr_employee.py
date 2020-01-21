@@ -2,9 +2,10 @@
 import sys
 from datetime import datetime
 from dbfpy import dbf
+from Dictionary import Dictionary
 
 
-def hr_employee(src_path, dst_path):
+def hr_employee(src_path, dst_path, dictionary):
     dst_file = dst_path + 'hr_employee.csv'
     try:
         dataset = dbf.Dbf(src_path + 'LS.DBF')
@@ -32,6 +33,7 @@ def hr_employee(src_path, dst_path):
             yearBirthDate = record['DTROJ'] and record['DTROJ'].year or ''
             f.write('%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n' % (ID, lastName, firstName, middleName, shortFIO, fullFIO, 
                 genName, datName, tabNum, sexType, birthDate, taxCode, email, description, locName, dayBirthDate, monthBirthDate, yearBirthDate))
+            dictionary.set_TaxCode(tabNum, taxCode)
         dataset.close()
     except:
         print 'Error making ', dst_file, sys.exc_info()[1]

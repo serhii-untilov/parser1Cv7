@@ -3,9 +3,10 @@ import sys
 from datetime import datetime
 import re
 from dbfpy import dbf
+from Dictionary import Dictionary
 
 
-def hr_employeePosition(src_path, dst_path):
+def hr_employeePosition(src_path, dst_path, dictionary):
     dst_file = dst_path + 'hr_employeePosition.csv'
     try:
         dataset = dbf.Dbf(src_path + 'PRK.DBF')
@@ -16,8 +17,8 @@ def hr_employeePosition(src_path, dst_path):
         for record in dataset:
             ID += 1
             employeeID = record['TN']
-            taxCode = ''
-            tabNum = record['TN']
+            tabNum = str(record['TN'])
+            taxCode = dictionary.get_TaxCode(tabNum)
             employeeNumberID = record['TN']
             departmentID = record['PDR']
             positionID = record['DOL'] > 0 and str(record['DOL']) or ''

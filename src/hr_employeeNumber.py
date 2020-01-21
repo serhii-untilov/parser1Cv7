@@ -12,7 +12,7 @@ def hr_employeeNumber(src_path, dst_path):
         f.write('ID;employeeID;taxCode;tabNum;dateFrom;dateTo;description;payOutID;personalAccount\n')
         for record in dataset:
             ID = str(record['TN']) # str(record['ID'])
-            employeeID = str(record['ID'])
+            employeeID = str(record['TN'])
             taxCode = record['NLP']
             tabNum = str(record['TN'])
             dateFrom = record['BEG'] and record['BEG'] or ''
