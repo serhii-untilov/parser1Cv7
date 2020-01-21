@@ -68,7 +68,7 @@ def hr_employee(src_path, dst_path):
     try:
         dataset = dbf.Dbf(src_path + 'LS.DBF')
         f = open(dst_file, 'w+')
-        f.write('ID;lastName;firstName;middleName;shortFIO;fullFIO;genName;datName;tabNum;sexType;birthDate;taxCode;email;description;dayBirthDate;monthBirthDate;yearBirthDate\r\n')
+        f.write('ID;lastName;firstName;middleName;shortFIO;fullFIO;genName;datName;tabNum;sexType;birthDate;taxCode;email;description;locName;dayBirthDate;monthBirthDate;yearBirthDate\r\n')
         id = 0
         for record in dataset:
             id = str(record['ID'])
