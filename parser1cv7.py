@@ -14,9 +14,6 @@ VERSION = '1.0 (20.01.2020)'
 AUTHOR = 'USV'
 
 
-verbose = False
-
-
 def hr_position(src_path, dst_path):
     dst_file = dst_path + 'hr_position.csv'
     try:
@@ -65,23 +62,35 @@ def hr_dictStaffCat(src_path, dst_path):
     except:
         print 'Error making ', dst_file, sys.exc_info()[1]
 
-
 def hr_employee(src_path, dst_path):
     dst_file = dst_path + 'hr_employee.csv'
     try:
         dataset = dbf.Dbf(src_path + 'LS.DBF')
         f = open(dst_file, 'w+')
-        f.write('ID;lastName;firstName;middleName;shortFIO;fullFIO;genName;datName;accusativeName;insName;tabNum;state;sexType;birthDate;taxCode;phoneMobile;phoneWorking;phoneHome;email;description;locName;dayBirthDate;monthBirthDate;yearBirthDate\r\n')
+        f.write('ID;lastName;firstName;middleName;shortFIO;fullFIO;genName;datName;tabNum;sexType;birthDate;taxCode;email;description;dayBirthDate;monthBirthDate;yearBirthDate\r\n')
         id = 0
         for record in dataset:
-            id = record['ID']
+            id = str(record['ID'])
             name = record['FIO'].split(' ')
             lastName = name[0]
             firstName = name[1]
             middleName = name[2]
             shortFIO = name[0] + ' ' + name[1][0] + '.' + name[2][0] + '.' 
             fullFIO = record['FIO']
-            f.write('%d;%s;%s;%s;%s;%s\r\n' % (id, lastName, firstName, middleName, shortFIO, fullFIO))
+            genName = record['FIOR']
+            datName = record['FIOD']
+            tabNum = str(record['TN'])
+            sexType = record['SEX'] == 1 and 'M' or record['SEX'] == 2 and 'W' or ''
+            birthDate = type(record['DTROJ']) is datetime and record['DTROJ'].strftime('%Y-%m-%d') or ''
+            taxCode = record['NLP']
+            email = record['EMAIL']
+            description = record['FIO'] + ' (' + str(record['TN']) + ')'
+            locName = record['FIO']
+            dayBirthDate = type(record['DTROJ']) is datetime and record['DTROJ'].day or ''
+            monthBirthDate = type(record['DTROJ']) is datetime and record['DTROJ'].month or ''
+            yearBirthDate = type(record['DTROJ']) is datetime and record['DTROJ'].year or ''
+            f.write('%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\r\n' % (id, lastName, firstName, middleName, shortFIO, fullFIO, 
+                genName, datName, tabNum, sexType, birthDate, taxCode, email, description, locName, dayBirthDate, monthBirthDate, yearBirthDate))
         dataset.close()
     except:
         print 'Error making ', dst_file, sys.exc_info()[1]
@@ -91,8 +100,7 @@ def create_arg_parser():
     parser = argparse.ArgumentParser(description=DESCRIPTION, epilog=AUTHOR, add_help=False)
     parser.add_argument('--src_path', '-s', action='store', help='Set path to a source files directory.')
     parser.add_argument('--dst_path', '-d', action='store', help='Set path to a destination files directory.')
-    parser.add_argument('--verbose', '-v', action="store_false", help='Increase output verbosity.')
-    parser.add_argument('--version', action='version', version='%(prog)s {}'.format(VERSION), help='Get programm\'s version.')
+    parser.add_argument('--version', '-v', action='version', version='%(prog)s {}'.format(VERSION), help='Get programm\'s version.')
     parser.add_argument('--help', '-h', action='help', help='Help.')
     return parser
 
@@ -114,8 +122,6 @@ if __name__ == '__main__':
     set_default(namespace)
     print parser.description
     print namespace
-
-    verbose = namespace.verbose
 
     hr_position(namespace.src_path, namespace.dst_path)
     hr_workSchedule(namespace.src_path, namespace.dst_path)
