@@ -10,9 +10,8 @@ def hr_employeeNumber(src_path, dst_path):
         dataset = dbf.Dbf(src_path + 'LS.DBF')
         f = open(dst_file, 'w+')
         f.write('ID;employeeID;taxCode;tabNum;dateFrom;dateTo;description;payOutID;personalAccount\r\n')
-        id = 0
         for record in dataset:
-            ID = str(record['ID'])
+            ID = str(record['TN']) # str(record['ID'])
             employeeID = str(record['ID'])
             taxCode = record['NLP']
             tabNum = str(record['TN'])
