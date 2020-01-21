@@ -81,14 +81,14 @@ def hr_employee(src_path, dst_path):
             datName = record['FIOD']
             tabNum = str(record['TN'])
             sexType = record['SEX'] == 1 and 'M' or record['SEX'] == 2 and 'W' or ''
-            birthDate = type(record['DTROJ']) is datetime and record['DTROJ'].strftime('%Y-%m-%d') or ''
+            birthDate = str(record['DTROJ'])
             taxCode = record['NLP']
             email = record['EMAIL']
             description = record['FIO'] + ' (' + str(record['TN']) + ')'
             locName = record['FIO']
-            dayBirthDate = type(record['DTROJ']) is datetime and record['DTROJ'].day or ''
-            monthBirthDate = type(record['DTROJ']) is datetime and record['DTROJ'].month or ''
-            yearBirthDate = type(record['DTROJ']) is datetime and record['DTROJ'].year or ''
+            dayBirthDate = record['DTROJ'] and record['DTROJ'].day or ''
+            monthBirthDate = record['DTROJ'] and record['DTROJ'].month or ''
+            yearBirthDate = record['DTROJ'] and record['DTROJ'].year or ''
             f.write('%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\r\n' % (id, lastName, firstName, middleName, shortFIO, fullFIO, 
                 genName, datName, tabNum, sexType, birthDate, taxCode, email, description, locName, dayBirthDate, monthBirthDate, yearBirthDate))
         dataset.close()
