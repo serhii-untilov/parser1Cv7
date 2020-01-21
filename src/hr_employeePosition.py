@@ -11,7 +11,7 @@ def hr_employeePosition(src_path, dst_path):
         dataset = dbf.Dbf(src_path + 'PRK.DBF')
         f = open(dst_file, 'w+')
         f.write('ID;employeeID;taxCode;tabNum;employeeNumberID;departmentID;positionID;dateFrom;dateTo;changeDateTo;workScheduleID;workerType;mtCount' +
-            ';description;dictRankID;dictStaffCatID;payElID;accrualSum;raiseSalary;isIndex;isActive;workPlace;dictFundSourceID;dictCategoryECBID;accountID\r\n')
+            ';description;dictRankID;dictStaffCatID;payElID;accrualSum;raiseSalary;isIndex;isActive;workPlace;dictFundSourceID;dictCategoryECBID;accountID\n')
         ID = 0
         for record in dataset:
             ID += 1
@@ -39,7 +39,7 @@ def hr_employeePosition(src_path, dst_path):
             dictFundSourceID = ''
             dictCategoryECBID = ''
             accountID = ''
-            f.write('%d,%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\r\n' % 
+            f.write('%d,%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n' % 
                 (ID,employeeID,taxCode,tabNum,employeeNumberID,departmentID,positionID,dateFrom,dateTo,changeDateTo,workScheduleID,workerType,mtCount,
                     description,dictRankID,dictStaffCatID,payElID,accrualSum,raiseSalary,isIndex,isActive,workPlace,dictFundSourceID,dictCategoryECBID,accountID))
         dataset.close()
