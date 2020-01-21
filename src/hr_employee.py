@@ -9,10 +9,9 @@ def hr_employee(src_path, dst_path):
     try:
         dataset = dbf.Dbf(src_path + 'LS.DBF')
         f = open(dst_file, 'w+')
-        f.write('ID;lastName;firstName;middleName;shortFIO;fullFIO;genName;datName;tabNum;sexType;birthDate;taxCode;email;description;locName;dayBirthDate;monthBirthDate;yearBirthDate\r\n')
-        id = 0
+        f.write('ID;lastName;firstName;middleName;shortFIO;fullFIO;genName;datName;tabNum;sexType;birthDate;taxCode;email;description;locName;dayBirthDate;monthBirthDate;yearBirthDate\n')
         for record in dataset:
-            id = str(record['ID'])
+            ID = str(record['TN']) # str(record['ID'])
             name = record['FIO'].split(' ')
             lastName = name[0]
             firstName = name[1]
@@ -31,7 +30,7 @@ def hr_employee(src_path, dst_path):
             dayBirthDate = record['DTROJ'] and record['DTROJ'].day or ''
             monthBirthDate = record['DTROJ'] and record['DTROJ'].month or ''
             yearBirthDate = record['DTROJ'] and record['DTROJ'].year or ''
-            f.write('%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\r\n' % (id, lastName, firstName, middleName, shortFIO, fullFIO, 
+            f.write('%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n' % (ID, lastName, firstName, middleName, shortFIO, fullFIO, 
                 genName, datName, tabNum, sexType, birthDate, taxCode, email, description, locName, dayBirthDate, monthBirthDate, yearBirthDate))
         dataset.close()
     except:
