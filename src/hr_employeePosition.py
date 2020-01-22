@@ -20,7 +20,7 @@ def hr_employeePosition(src_path, dst_path, dictionary):
             tabNum = str(record['TN'])
             taxCode = dictionary.get_TaxCode(tabNum)
             employeeNumberID = record['TN']
-            departmentID = record['PDR']
+            departmentID = record['PDR'] and str(dictionary.get_DepartmentID(record['PDR'])) or ''
             positionID = record['DOL'] > 0 and str(record['DOL']) or ''
             dateFrom = record['BEG'] and record['BEG'] or ''
             dateTo = ''

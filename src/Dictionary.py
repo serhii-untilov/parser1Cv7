@@ -7,9 +7,21 @@ class Dictionary:
     def __init__(self, src_path, dst_path):
         self.TaxCode = {}
         self.PayElID = {}
+        self.DepartmentID = {}
         self.error_count = 0
         self.src_path = src_path
         self.dst_path = dst_path
+
+    def set_DepartmentID(self, code, ID):
+        self.DepartmentID[code] = ID
+
+    def get_DepartmentID(self, code):
+        try:
+            return self.DepartmentID[code] and self.DepartmentID[code] or ''
+        except:
+            self.error_count += 1
+            print 'Error [' + str(self.error_count) + ']. Not found Department code: ' + code + '.'
+            return ''
 
     def set_TaxCode(self, tabNum, taxCode):
         self.TaxCode[tabNum] = taxCode
@@ -19,7 +31,7 @@ class Dictionary:
             return self.TaxCode[tabNum] and self.TaxCode[tabNum] or ''
         except:
             self.error_count += 1
-            print '[' + str(self.error_count) + '] Not found tabNum: ' + tabNum + '.'
+            print 'Error [' + str(self.error_count) + ']. Not found tabNum: ' + tabNum + '.'
             return ''
 
     def set_PayElID(self, cd, payElID):
@@ -33,7 +45,7 @@ class Dictionary:
             ID = _append_hr_payEl(ID, cd, cd, self.src_path, self.dst_path)
             if (ID == 0):
                 self.error_count += 1
-                print '[' + str(self.error_count) + '] Not found PayElCd: ' + cd + '.'
+                print 'Error [' + str(self.error_count) + ']. Not found PayElCd: ' + cd + '.'
             else:
                 self.set_PayElID(cd, ID)
             return ID
@@ -51,5 +63,5 @@ def _append_hr_payEl(ID, code, name, src_path, dst_path):
         print 'Append', dst_file, ID, code, name
         return ID
     except:
-        print 'Error append ', dst_file, sys.exc_info()[1]
+        print 'Not added', dst_file, sys.exc_info()[1]
         return 0
