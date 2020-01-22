@@ -3,48 +3,41 @@ import sys
 from datetime import datetime
 from dbfpy import dbf
 from Dictionary import Dictionary
-
+from Accrual import Accrual
 
 def hr_accrual(src_path, dst_path, dictionary):
     dst_file = dst_path + 'hr_accrual.csv'
     try:
-        dataset = dbf.Dbf(src_path + 'RL.DBF')
         f = open(dst_file, 'w+')
-        f.write('ID;periodCalc;periodSalary;tabNum;taxCode;employeeNumberID;payElID;baseSum;rate;paySum;days;hours;' + 
-            'calculateDate;mask;flagsRec;flagsFix;planHours;planDays;maskAdd;dateFrom;dateTo;source;sourceID;' + 
-                'dateFromAvg;dateToAvg;sumAvg\n')
-        ID = 0
-        for record in dataset:
-            ID += 1
-            periodCalc = record['UP']
-            periodSalary = record['RP']
-            tabNum = str(record['TN'])
-            taxCode = dictionary.get_TaxCode(tabNum)
-            employeeNumberID = tabNum = str(record['TN'])
-            payElID	= dictionary.get_PayElID(record['CD'])
-            baseSum = ''
-            rate = ''
-            paySum = record['SM'] != 0 and str(record['SM']) or ''
-            days = record['DAYS'] != 0 and str(record['DAYS']) or ''
-            hours = record['HRS'] != 0 and str(record['HRS']) or ''
-            calculateDate = ''	
-            mask = ''
-            flagsRec = str(8 | (record['STOR'] > 0 and 512 or 0)) # 8 - import, 512 - storno
-            flagsFix = ''	
-            planHours = ''
-            planDays = ''
-            maskAdd	= ''
-            dateFrom = record['PR_BEG']
-            dateTo = record['PR_END']
-            source = ''
-            sourceID = ''
-            dateFromAvg	= ''
-            dateToAvg = ''
-            sumAvg = ''
-            f.write('%d;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n' % 
-                (ID, periodCalc, periodSalary, tabNum, taxCode, employeeNumberID, payElID, baseSum, rate, paySum, days, hours, 
-                    calculateDate, mask, flagsRec, flagsFix, planHours, planDays, maskAdd, dateFrom, dateTo, source, 
-                        sourceID, dateFromAvg, dateToAvg, sumAvg))
-        dataset.close()
+        accrual = Accrual()
+        accrual.write_header(f)
+        accrual.ID = 0
+
+        _read_DBF(src_path + 'RL.DBF', accrual, f, dictionary)
+        _read_DBF(src_path + 'RL_Dogl.DBF', accrual, f, dictionary)
+        _read_DBF(src_path + 'RL_Lik_F.DBF', accrual, f, dictionary)
+        _read_DBF(src_path + 'RL_Lik_P.DBF', accrual, f, dictionary)
+
     except:
         print 'Error making ', dst_file, sys.exc_info()[1]
+
+
+def _read_DBF(src_file, accrual, f, dictionary):
+    dataset = dbf.Dbf(src_file)
+    for record in dataset:
+        accrual.ID += 1
+        accrual.periodCalc = record['UP']
+        accrual.periodSalary = record['RP']
+        accrual.tabNum = str(record['TN'])
+        accrual.taxCode = dictionary.get_TaxCode(accrual.tabNum)
+        accrual.employeeNumberID = accrual.tabNum = str(record['TN'])
+        accrual.payElID	= dictionary.get_PayElID(record['CD'])
+        accrual.paySum = record['SM'] != 0 and str(record['SM']) or ''
+        accrual.days = record['DAYS'] != 0 and str(record['DAYS']) or ''
+        accrual.hours = record['HRS'] != 0 and str(record['HRS']) or ''
+        accrual.calculateDate = ''	
+        accrual.flagsRec = str(8 | (record['STOR'] > 0 and 512 or 0)) # 8 - import, 512 - storno
+        accrual.dateFrom = record['PR_BEG']
+        accrual.dateTo = record['PR_END']
+        accrual.write_record(f)
+    dataset.close()
