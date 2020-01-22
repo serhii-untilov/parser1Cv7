@@ -50,7 +50,7 @@ if __name__ == '__main__':
     print parser.description
     print namespace
 
-    dictionary = Dictionary()
+    dictionary = Dictionary(namespace.src_path, namespace.dst_path)
 
     hr_position(namespace.src_path, namespace.dst_path)
     hr_workSchedule(namespace.src_path, namespace.dst_path)

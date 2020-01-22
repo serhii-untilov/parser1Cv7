@@ -10,7 +10,7 @@ def hr_accrual(src_path, dst_path, dictionary):
     try:
         dataset = dbf.Dbf(src_path + 'RL.DBF')
         f = open(dst_file, 'w+')
-        f.write('ID;periodCalc;periodSalary;tabNum;employeeNumberID;payElID;baseSum;rate;paySum;days;hours;' + 
+        f.write('ID;periodCalc;periodSalary;tabNum;taxCode;employeeNumberID;payElID;baseSum;rate;paySum;days;hours;' + 
             'calculateDate;mask;flagsRec;flagsFix;planHours;planDays;maskAdd;dateFrom;dateTo;source;sourceID;' + 
                 'dateFromAvg;dateToAvg;sumAvg\n')
         ID = 0
@@ -19,6 +19,7 @@ def hr_accrual(src_path, dst_path, dictionary):
             periodCalc = record['UP']
             periodSalary = record['RP']
             tabNum = str(record['TN'])
+            taxCode = dictionary.get_TaxCode(tabNum)
             employeeNumberID = tabNum = str(record['TN'])
             payElID	= dictionary.get_PayElID(record['CD'])
             baseSum = ''
@@ -40,8 +41,8 @@ def hr_accrual(src_path, dst_path, dictionary):
             dateFromAvg	= ''
             dateToAvg = ''
             sumAvg = ''
-            f.write('%d;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n' % 
-                (ID, periodCalc, periodSalary, tabNum, employeeNumberID, payElID, baseSum, rate, paySum, days, hours, 
+            f.write('%d;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n' % 
+                (ID, periodCalc, periodSalary, tabNum, taxCode, employeeNumberID, payElID, baseSum, rate, paySum, days, hours, 
                     calculateDate, mask, flagsRec, flagsFix, planHours, planDays, maskAdd, dateFrom, dateTo, source, 
                         sourceID, dateFromAvg, dateToAvg, sumAvg))
         dataset.close()
