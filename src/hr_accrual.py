@@ -5,6 +5,7 @@ from dbfpy import dbf
 from Dictionary import Dictionary
 from Accrual import Accrual
 
+
 def hr_accrual(src_path, dst_path, dictionary):
     dst_file = dst_path + 'hr_accrual.csv'
     try:

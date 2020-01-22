@@ -27,7 +27,7 @@ def hr_employeeAccrual(src_path, dst_path, dictionary):
             orderNumber = record['CDPR']
             orderDatefrom = ''
             taxCode = dictionary.get_TaxCode(tabNum)
-            f.write('%d;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n' % 
+            f.write('%d;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n' % 
                 (ID, employeeID, tabNum, taxCode, employeeNumberID, payElID, 
                     dateFrom, dateTo, accrualSum, accrualRate, orderNumber, orderDatefrom, taxCode))
         dataset.close()

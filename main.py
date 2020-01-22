@@ -7,6 +7,7 @@ import re
 from datetime import datetime
 from dbfpy import dbf
 from src.Dictionary import Dictionary
+from src.hr_dictPosition import hr_dictPosition
 from src.hr_position import hr_position
 from src.hr_workSchedule import hr_workSchedule
 from src.hr_dictStaffCat import hr_dictStaffCat
@@ -16,6 +17,7 @@ from src.hr_employeeNumber import hr_employeeNumber
 from src.hr_employeePosition import hr_employeePosition
 from src.hr_employeeAccrual import hr_employeeAccrual
 from src.hr_accrual import hr_accrual
+
 
 
 DESCRIPTION = '1C v7 parser'
@@ -52,6 +54,7 @@ if __name__ == '__main__':
 
     dictionary = Dictionary(namespace.src_path, namespace.dst_path)
 
+    hr_dictPosition(namespace.src_path, namespace.dst_path)
     hr_position(namespace.src_path, namespace.dst_path)
     hr_workSchedule(namespace.src_path, namespace.dst_path)
     hr_dictStaffCat(namespace.src_path, namespace.dst_path)
