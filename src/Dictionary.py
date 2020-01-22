@@ -8,6 +8,7 @@ class Dictionary:
         self.TaxCode = {}
         self.PayElID = {}
         self.DepartmentID = {}
+        self.DictPositionName = {}
         self.error_count = 0
         self.src_path = src_path
         self.dst_path = dst_path
@@ -22,6 +23,18 @@ class Dictionary:
             self.error_count += 1
             print 'Error [' + str(self.error_count) + ']. Not found Department code: ' + code + '.'
             return ''
+
+    def set_DictPositionName(self, code, name):
+        self.DictPositionName[code] = name
+
+    def get_DictPositionName(self, code):
+        try:
+            return self.DictPositionName[code] and self.DictPositionName[code] or ''
+        except:
+            self.error_count += 1
+            print 'Error [' + str(self.error_count) + ']. Not found dictPosition code: ' + code + '.'
+            return ''
+
 
     def set_TaxCode(self, tabNum, taxCode):
         self.TaxCode[tabNum] = taxCode

@@ -24,7 +24,7 @@ def hr_employeeAccrual(src_path, dst_path, dictionary):
             dateTo = record['DATK'] and record['DATK'] or '9999-12-31'
             accrualSum = str(record['SM'])
             accrualRate = str(record['PRC'])
-            orderNumber = record['CDPR']
+            orderNumber = '' # record['CDPR']
             orderDatefrom = ''
             taxCode = dictionary.get_TaxCode(tabNum)
             f.write('%d;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n' % 
