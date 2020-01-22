@@ -40,7 +40,7 @@ def hr_employeePosition(src_path, dst_path, dictionary):
             employeePosition.dateTo = ''
             if (record['STV']):
                 employeePosition.mtCount = str(record['STV'])
-            description = ''
+            employeePosition.description = ''
             if (record['RAN']):
                 employeePosition.dictRankID = record['RAN'] > 0 and str(record['RAN']) or ''
             if (record['KAD']):
