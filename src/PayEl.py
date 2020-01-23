@@ -7,10 +7,10 @@ class PayEl:
         self.ID = 0
         self.code = ''
         self.name = ''
-        self.methodID = ''
+        self.methodID = '1'
         self.description = ''
-        self.dateFrom = ''
-        self.dateTo = ''
+        self.dateFrom = 'NULL'
+        self.dateTo = 'NULL'
         self.roundUpTo = '2'
         self.isAutoCalc = '1'
         self.isRecalculate = '1'

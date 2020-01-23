@@ -14,7 +14,7 @@ def hr_payEl(src_path, dst_path, dictionary):
         payEl.ID = 0
         for record in dataset:
             payEl.ID += 1
-            payEl.code = str(record['ID'])
+            payEl.code = str(record['ID'])[:32]
             payEl.name = str(record['NM'])
             payEl.description = payEl.name + '(' + payEl.code + ')'
             payEl.write_record(f)
