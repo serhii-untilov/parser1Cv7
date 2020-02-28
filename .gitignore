@@ -1,4 +1,7 @@
 env
+build
+dist
 *.dbf
 *.csv
 *.pyc
+*.spec
