@@ -68,4 +68,4 @@ if __name__ == '__main__':
     hr_employeeAccrual(namespace.src_path, namespace.dst_path, dictionary)
     hr_accrual(namespace.src_path, namespace.dst_path, dictionary)
 
-    renewalTN(namespace.src_path, namespace.dst_path)
+    renewalTN(namespace.src_path, namespace.dst_path) # hr_employeeNumber.csv could be used instead of renewalTN.csv
