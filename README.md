@@ -3,7 +3,7 @@ How to parse files
 
 1. Download the <a href="https://drive.google.com/open?id=1irf-ojO_RuTRQigDempJp3J2KxSRkoeF" download target="_blank">parser1Cv7.exe</a>
 2. Copy source DBF files in the same directory.
-3. Run the [parser1Cv7.exe](https://drive.google.com/open?id=1irf-ojO_RuTRQigDempJp3J2KxSRkoeF)
+3. Run the parser1Cv7.exe
 
 Development
 ===========
