@@ -1,9 +1,9 @@
 How to parse files
 ==================
 
-1. Download the [parser1Cv7.exe](./parser1Cv7.exe)
+1. Download the <a href="https://drive.google.com/open?id=1irf-ojO_RuTRQigDempJp3J2KxSRkoeF" download target="_blank">parser1Cv7.exe</a>
 2. Copy source DBF files in the same directory.
-3. Run the [parser1Cv7.exe](./parser1Cv7.exe)
+3. Run the [parser1Cv7.exe](https://drive.google.com/open?id=1irf-ojO_RuTRQigDempJp3J2KxSRkoeF)
 
 Development
 ===========
@@ -41,10 +41,10 @@ Development
     ```
     run.cmd
     ```
-11. Output files will be in parser1Cv7\outp\ directory.
+11. Output files will be in outp\ directory.
 
 12. To make executable file for Windows run
     ```
     build.cmd
     ```
-    That makes the parser1Cv7.exe file.
+    That makes the dist\parser1Cv7.exe file.

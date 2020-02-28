@@ -18,6 +18,7 @@ from src.hr_employeePosition import hr_employeePosition
 from src.hr_employeeAccrual import hr_employeeAccrual
 from src.hr_accrual import hr_accrual
 from src.hr_department import hr_department
+from src.renewalTN import renewalTN
 
 
 DESCRIPTION = '1C v7 parser'
@@ -67,3 +68,4 @@ if __name__ == '__main__':
     hr_employeeAccrual(namespace.src_path, namespace.dst_path, dictionary)
     hr_accrual(namespace.src_path, namespace.dst_path, dictionary)
 
+    renewalTN(namespace.src_path, namespace.dst_path)
