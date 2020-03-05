@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 import sys
 from src.PayEl import PayEl
-
+from sets import Set
 
 class Dictionary:
     def __init__(self, src_path, dst_path):
@@ -9,9 +9,17 @@ class Dictionary:
         self.PayElID = {}
         self.DepartmentID = {}
         self.DictPositionName = {}
+        self.PayElCode = Set()
         self.error_count = 0
         self.src_path = src_path
         self.dst_path = dst_path
+
+    def setPayElCode(self, code): 
+        if (code not in self.PayElCode):
+            self.PayElCode.add(code)
+
+    def getPayElCode(self, code): 
+        return (code in self.PayElCode)
 
     def set_DepartmentID(self, code, ID):
         self.DepartmentID[code] = ID
@@ -51,16 +59,17 @@ class Dictionary:
         self.PayElID[cd] = payElID
 
     def get_PayElID(self, cd):
+        code = str(cd)[:32]
         try:
-            return self.PayElID[cd] and self.PayElID[cd] or 0
+            return self.PayElID[code] and self.PayElID[code] or 0
         except:
             ID = len(self.PayElID) + 1                    
-            ID = _append_hr_payEl(ID, cd, cd, self.src_path, self.dst_path)
+            ID = _append_hr_payEl(ID, code, code, self.src_path, self.dst_path)
             if (ID == 0):
                 self.error_count += 1
                 print 'Error [' + str(self.error_count) + ']. Not found PayElCd: ' + cd + '.'
             else:
-                self.set_PayElID(cd, ID)
+                self.set_PayElID(code, ID)
             return ID
 
 def _append_hr_payEl(ID, code, name, src_path, dst_path):

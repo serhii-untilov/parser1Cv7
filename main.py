@@ -19,10 +19,11 @@ from src.hr_employeeAccrual import hr_employeeAccrual
 from src.hr_accrual import hr_accrual
 from src.hr_department import hr_department
 from src.renewalTN import renewalTN
+from src.payElActuallyUsed import setPayElActuallyUsed
 
 
 DESCRIPTION = '1C v7 parser'
-VERSION = '1.0 (20.01.2020)'
+VERSION = '1.1 (05.03.2020)'
 AUTHOR = 'USV'
 
 
@@ -59,6 +60,8 @@ if __name__ == '__main__':
     hr_department(namespace.src_path, namespace.dst_path, dictionary)
     hr_workSchedule(namespace.src_path, namespace.dst_path)
     hr_dictStaffCat(namespace.src_path, namespace.dst_path)
+    setPayElActuallyUsed(namespace.src_path, dictionary)
+    # print len(dictionary.PayElCode), dictionary.PayElCode
     hr_payEl(namespace.src_path, namespace.dst_path, dictionary)
     hr_position(namespace.src_path, namespace.dst_path, dictionary)
 
