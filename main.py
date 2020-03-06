@@ -61,7 +61,6 @@ if __name__ == '__main__':
     hr_workSchedule(namespace.src_path, namespace.dst_path)
     hr_dictStaffCat(namespace.src_path, namespace.dst_path)
     setPayElActuallyUsed(namespace.src_path, dictionary)
-    # print len(dictionary.PayElCode), dictionary.PayElCode
     hr_payEl(namespace.src_path, namespace.dst_path, dictionary)
     hr_position(namespace.src_path, namespace.dst_path, dictionary)
 
