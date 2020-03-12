@@ -23,7 +23,7 @@ def hr_employee(src_path, dst_path, dictionary):
             datName = record['FIOD']
             tabNum = str(record['TN'])
             sexType = record['SEX'] == 1 and 'M' or record['SEX'] == 2 and 'W' or ''
-            birthDate = str(record['DTROJ'])
+            birthDate = str(record['DTROJ'] and record['DTROJ'] or '' )
             taxCode = record['NLP']
             email = record['EMAIL']
             description = record['FIO'] + ' (' + str(record['TN']) + ')'
