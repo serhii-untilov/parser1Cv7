@@ -12,6 +12,10 @@ def hr_employee(src_path, dst_path, dictionary):
         f = open(dst_file, 'w+')
         f.write('ID;lastName;firstName;middleName;shortFIO;fullFIO;genName;datName;tabNum;sexType;birthDate;taxCode;email;description;locName;dayBirthDate;monthBirthDate;yearBirthDate\n')
         for record in dataset:
+            if (record['END'] is not None and record['END'] < dictionary.arcMinDate and dictionary.getAccrualSize(record['TN']) == 0):
+                print('TabNum {} is skipped. Dismissal date is {}'.format(record['TN'], record['END']))
+                dictionary.setSkipEmployee(record['TN'])
+                continue
             ID = str(record['TN']) # str(record['ID'])
             name = record['FIO'].split(' ')
             lastName = name[0]

@@ -18,6 +18,8 @@ def hr_employeePosition(src_path, dst_path, dictionary):
         last_tabNum = 0
         ID = 0
         for record in dataset:
+            if (dictionary.isSkipEmployee(record['TN'])):
+                continue
             ID += 1
             tabNum = str(record['TN'])
             if (last_tabNum != tabNum):

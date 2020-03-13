@@ -4,13 +4,15 @@ from datetime import datetime
 from dbfpy import dbf
 
 
-def hr_employeeNumber(src_path, dst_path):
+def hr_employeeNumber(src_path, dst_path, dictionary):
     dst_file = dst_path + 'hr_employeeNumber.csv'
     try:
         dataset = dbf.Dbf(src_path + 'LS.DBF')
         f = open(dst_file, 'w+')
         f.write('ID;employeeID;taxCode;tabNum;dateFrom;dateTo;description;payOutID;personalAccount\n')
         for record in dataset:
+            if (dictionary.isSkipEmployee(record['TN'])):
+                continue
             ID = str(record['TN']) # str(record['ID'])
             employeeID = str(record['TN'])
             taxCode = record['NLP']

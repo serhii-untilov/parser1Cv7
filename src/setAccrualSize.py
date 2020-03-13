@@ -5,7 +5,7 @@ from dbfpy import dbf
 from Dictionary import Dictionary
 
 
-def setPayElActuallyUsed(src_path, dictionary):
+def setAccrualSize(src_path, dst_path, dictionary):
     try:
         _read_DBF(src_path + 'RL.DBF', dictionary)
         _read_DBF(src_path + 'RL_Dogl.DBF', dictionary)
@@ -13,12 +13,13 @@ def setPayElActuallyUsed(src_path, dictionary):
         _read_DBF(src_path + 'RL_Lik_P.DBF', dictionary)
 
     except:
-        print 'Error making PayElCode', sys.exc_info()[1]
+        print 'Accrual size calculating error. ', sys.exc_info()[1]
 
 
 def _read_DBF(src_file, dictionary):
     dataset = dbf.Dbf(src_file)
     for record in dataset:
-        code = str(record['CD'])[:32]
-        dictionary.setPayElCode(code)
+        if (record['UP'] is None or record['UP'] < dictionary.arcMinDate):
+            continue
+        dictionary.addAccrualSize(record['TN'])
     dataset.close()

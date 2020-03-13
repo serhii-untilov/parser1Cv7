@@ -1,4 +1,5 @@
 #!/usr/bin/env python2
+# coding=cp1251
 import sys
 from datetime import datetime
 from dbfpy import dbf
@@ -26,6 +27,12 @@ def hr_accrual(src_path, dst_path, dictionary):
 def _read_DBF(src_file, accrual, f, dictionary):
     dataset = dbf.Dbf(src_file)
     for record in dataset:
+        if (record['CD'] == 'НачальноеСальдо'):
+            continue
+        if (dictionary.isSkipEmployee(record['TN'])):
+            continue
+        if (record['UP'] is not None and record['UP'] < dictionary.arcMinDate):
+            continue
         accrual.ID += 1
         accrual.periodCalc = record['UP']
         accrual.periodSalary = record['RP']

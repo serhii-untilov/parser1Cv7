@@ -11,6 +11,7 @@ from src.hr_dictPosition import hr_dictPosition
 from src.hr_position import hr_position
 from src.hr_workSchedule import hr_workSchedule
 from src.hr_dictStaffCat import hr_dictStaffCat
+from src.setAccrualSize import setAccrualSize
 from src.hr_employee import hr_employee
 from src.hr_payEl import hr_payEl
 from src.hr_employeeNumber import hr_employeeNumber
@@ -19,7 +20,8 @@ from src.hr_employeeAccrual import hr_employeeAccrual
 from src.hr_accrual import hr_accrual
 from src.hr_department import hr_department
 from src.renewalTN import renewalTN
-from src.payElActuallyUsed import setPayElActuallyUsed
+from src.payElUsed import setPayElUsed
+from src.hr_accrualBalance import hr_accrualBalance
 
 
 DESCRIPTION = '1C v7 parser'
@@ -60,14 +62,16 @@ if __name__ == '__main__':
     hr_department(namespace.src_path, namespace.dst_path, dictionary)
     hr_workSchedule(namespace.src_path, namespace.dst_path)
     hr_dictStaffCat(namespace.src_path, namespace.dst_path)
-    setPayElActuallyUsed(namespace.src_path, dictionary)
+    setPayElUsed(namespace.src_path, dictionary)
     hr_payEl(namespace.src_path, namespace.dst_path, dictionary)
     hr_position(namespace.src_path, namespace.dst_path, dictionary)
 
+    setAccrualSize(namespace.src_path, namespace.dst_path, dictionary)
     hr_employee(namespace.src_path, namespace.dst_path, dictionary)
-    hr_employeeNumber(namespace.src_path, namespace.dst_path)
+    hr_employeeNumber(namespace.src_path, namespace.dst_path, dictionary)
     hr_employeePosition(namespace.src_path, namespace.dst_path, dictionary)
     hr_employeeAccrual(namespace.src_path, namespace.dst_path, dictionary)
     hr_accrual(namespace.src_path, namespace.dst_path, dictionary)
+    hr_accrualBalance(namespace.src_path, namespace.dst_path, dictionary)
 
-    renewalTN(namespace.src_path, namespace.dst_path) # hr_employeeNumber.csv could be used instead of renewalTN.csv
+    renewalTN(namespace.src_path, namespace.dst_path, dictionary) # hr_employeeNumber.csv could be used instead of renewalTN.csv

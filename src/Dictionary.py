@@ -2,6 +2,11 @@
 import sys
 from src.PayEl import PayEl
 from sets import Set
+from datetime import datetime
+
+
+ARC_SIZE_YEAR = 1
+
 
 class Dictionary:
     def __init__(self, src_path, dst_path):
@@ -10,9 +15,30 @@ class Dictionary:
         self.DepartmentID = {}
         self.DictPositionName = {}
         self.PayElCode = Set()
+        self.AccrualSize = {}
+        self.SkipEmployee = Set()
         self.error_count = 0
         self.src_path = src_path
         self.dst_path = dst_path
+        self.arcMinDate = datetime.date(datetime.now().replace(year= datetime.now().year - ARC_SIZE_YEAR, month=1, day=1))
+        print('Minimal arc date is %s\n' % self.arcMinDate)
+
+    def addAccrualSize(self, tabNum):
+        self.AccrualSize[tabNum] = 1
+
+    def getAccrualSize(self, tabNum):
+        try:
+            return self.AccrualSize[tabNum] and self.AccrualSize[tabNum] or 0
+        except:
+            self.AccrualSize[tabNum] = 0
+            return 0
+
+    def setSkipEmployee(self, tabNum):
+        if (tabNum not in self.SkipEmployee):
+            self.SkipEmployee.add(tabNum)
+
+    def isSkipEmployee(self, tabNum):
+        return (tabNum in self.SkipEmployee)
 
     def setPayElCode(self, code): 
         if (code not in self.PayElCode):
