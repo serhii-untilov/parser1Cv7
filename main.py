@@ -25,7 +25,7 @@ from src.hr_accrualBalance import hr_accrualBalance
 
 
 DESCRIPTION = '1C v7 parser'
-VERSION = '1.1 (05.03.2020)'
+VERSION = '1.2 (13.03.2020)'
 AUTHOR = 'USV'
 
 
