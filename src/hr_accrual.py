@@ -15,16 +15,16 @@ def hr_accrual(src_path, dst_path, dictionary):
         accrual.write_header(f)
         accrual.ID = 0
 
-        _read_DBF(src_path + 'RL.DBF', accrual, f, dictionary)
-        _read_DBF(src_path + 'RL_Dogl.DBF', accrual, f, dictionary)
-        _read_DBF(src_path + 'RL_Lik_F.DBF', accrual, f, dictionary)
-        _read_DBF(src_path + 'RL_Lik_P.DBF', accrual, f, dictionary)
+        _read_DBF(src_path + 'RL.DBF', accrual, f, dictionary, '')
+        _read_DBF(src_path + 'RL_Dogl.DBF', accrual, f, dictionary, '')
+        _read_DBF(src_path + 'RL_Lik_P.DBF', accrual, f, dictionary, '')
+        _read_DBF(src_path + 'RL_Lik_F.DBF', accrual, f, dictionary, '_ФСС')
 
     except:
         print 'Error making ', dst_file, sys.exc_info()[1]
 
 
-def _read_DBF(src_file, accrual, f, dictionary):
+def _read_DBF(src_file, accrual, f, dictionary, suffix):
     dataset = dbf.Dbf(src_file)
     for record in dataset:
         if (record['CD'] == 'НачальноеСальдо'):
@@ -33,13 +33,14 @@ def _read_DBF(src_file, accrual, f, dictionary):
             continue
         if (record['UP'] is not None and record['UP'] < dictionary.arcMinDate):
             continue
+        code = record['CD'] + suffix
         accrual.ID += 1
         accrual.periodCalc = record['UP']
         accrual.periodSalary = record['RP']
         accrual.tabNum = str(record['TN'])
         accrual.taxCode = dictionary.get_TaxCode(accrual.tabNum)
         accrual.employeeNumberID = accrual.tabNum = str(record['TN'])
-        accrual.payElID	= dictionary.get_PayElID(record['CD'])
+        accrual.payElID	= dictionary.get_PayElID(code)
         accrual.paySum = record['SM'] != 0 and str(record['SM']) or ''
         accrual.days = record['DAYS'] != 0 and str(record['DAYS']) or ''
         accrual.hours = record['HRS'] != 0 and str(record['HRS']) or ''
