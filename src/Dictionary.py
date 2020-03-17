@@ -85,7 +85,6 @@ class Dictionary:
         self.PayElID[cd] = payElID
 
     def get_PayElID(self, code):
-        # code = str(cd)[:32]
         try:
             return self.PayElID[code] and self.PayElID[code] or 0
         except:
@@ -104,7 +103,7 @@ def _append_hr_payEl(ID, code, name, src_path, dst_path):
         f = open(dst_file, 'a+')
         payEl = PayEl()
         payEl.ID = ID
-        payEl.code = str(code)[:32]
+        payEl.code = code[:32]
         payEl.name = name
         payEl.description = name + '(' + code + ')'
         payEl.write_record(f)

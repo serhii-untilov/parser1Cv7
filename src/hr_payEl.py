@@ -15,8 +15,8 @@ def hr_payEl(src_path, dst_path, dictionary):
         for record in dataset:
             if (dictionary.getPayElCode(record['ID'])):
                 payEl.ID += 1
-                payEl.code = str(record['ID'])[:32]
-                payEl.name = str(record['NM'])
+                payEl.code = record['ID'][:32]
+                payEl.name = record['NM']
                 payEl.description = record['NM'] + '(' + record['ID'] + ')'
                 payEl.write_record(f)
                 dictionary.set_PayElID(record['ID'], payEl.ID)

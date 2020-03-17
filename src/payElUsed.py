@@ -25,6 +25,6 @@ def _read_DBF(src_file, dictionary, suffix):
             continue
         if (record['UP'] is not None and record['UP'] < dictionary.arcMinDate):
             continue
-        code = str(record['CD'])[:32] + suffix
+        code = record['CD'] + suffix
         dictionary.setPayElCode(code)
     dataset.close()
