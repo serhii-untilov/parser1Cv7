@@ -84,8 +84,8 @@ class Dictionary:
     def set_PayElID(self, cd, payElID):
         self.PayElID[cd] = payElID
 
-    def get_PayElID(self, cd):
-        code = str(cd)[:32]
+    def get_PayElID(self, code):
+        # code = str(cd)[:32]
         try:
             return self.PayElID[code] and self.PayElID[code] or 0
         except:
@@ -93,7 +93,7 @@ class Dictionary:
             ID = _append_hr_payEl(ID, code, code, self.src_path, self.dst_path)
             if (ID == 0):
                 self.error_count += 1
-                print 'Error [' + str(self.error_count) + ']. Not found PayElCd: ' + cd + '.'
+                print 'Error [' + str(self.error_count) + ']. Not found PayElCd: ' + code + '.'
             else:
                 self.set_PayElID(code, ID)
             return ID
@@ -104,9 +104,9 @@ def _append_hr_payEl(ID, code, name, src_path, dst_path):
         f = open(dst_file, 'a+')
         payEl = PayEl()
         payEl.ID = ID
-        payEl.code = code
+        payEl.code = str(code)[:32]
         payEl.name = name
-        payEl.description = payEl.name + '(' + payEl.code + ')'
+        payEl.description = name + '(' + code + ')'
         payEl.write_record(f)
         print 'Append', dst_file, ID, code, name
         return ID

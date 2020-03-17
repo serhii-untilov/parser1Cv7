@@ -25,7 +25,7 @@ from src.hr_accrualBalance import hr_accrualBalance
 
 
 DESCRIPTION = '1C v7 parser'
-VERSION = '1.2 (13.03.2020)'
+VERSION = '1.3 (17.03.2020)'
 AUTHOR = 'USV'
 
 
@@ -58,16 +58,17 @@ if __name__ == '__main__':
 
     dictionary = Dictionary(namespace.src_path, namespace.dst_path)
 
+    setAccrualSize(namespace.src_path, namespace.dst_path, dictionary)
+    hr_employee(namespace.src_path, namespace.dst_path, dictionary)
+    setPayElUsed(namespace.src_path, dictionary)
+
     hr_dictPosition(namespace.src_path, namespace.dst_path, dictionary)
     hr_department(namespace.src_path, namespace.dst_path, dictionary)
     hr_workSchedule(namespace.src_path, namespace.dst_path)
     hr_dictStaffCat(namespace.src_path, namespace.dst_path)
-    setPayElUsed(namespace.src_path, dictionary)
     hr_payEl(namespace.src_path, namespace.dst_path, dictionary)
     hr_position(namespace.src_path, namespace.dst_path, dictionary)
 
-    setAccrualSize(namespace.src_path, namespace.dst_path, dictionary)
-    hr_employee(namespace.src_path, namespace.dst_path, dictionary)
     hr_employeeNumber(namespace.src_path, namespace.dst_path, dictionary)
     hr_employeePosition(namespace.src_path, namespace.dst_path, dictionary)
     hr_employeeAccrual(namespace.src_path, namespace.dst_path, dictionary)

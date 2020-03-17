@@ -16,6 +16,8 @@ def hr_employeeAccrual(src_path, dst_path, dictionary):
         for record in dataset:
             if (dictionary.isSkipEmployee(record['TN'])):
                 continue
+            if (record['DATK'] is not None and record['DATK'] < dictionary.arcMinDate):
+                continue
             ID += 1
             employeeID = str(record['TN']) # str(record['ID'])
             tabNum = str(record['TN'])

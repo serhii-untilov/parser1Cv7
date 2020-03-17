@@ -13,13 +13,13 @@ def hr_payEl(src_path, dst_path, dictionary):
         payEl.write_header(f)
         payEl.ID = 0
         for record in dataset:
-            payEl.code = str(record['ID'])[:32]
-            if (dictionary.getPayElCode(payEl.code)):
+            if (dictionary.getPayElCode(record['ID'])):
                 payEl.ID += 1
+                payEl.code = str(record['ID'])[:32]
                 payEl.name = str(record['NM'])
-                payEl.description = payEl.name + '(' + payEl.code + ')'
+                payEl.description = record['NM'] + '(' + record['ID'] + ')'
                 payEl.write_record(f)
-                dictionary.set_PayElID(payEl.code, payEl.ID)
+                dictionary.set_PayElID(record['ID'], payEl.ID)
         dataset.close()
     except:
         print 'Error making ', dst_file, sys.exc_info()[1]
