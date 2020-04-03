@@ -6,11 +6,26 @@ from datetime import timedelta
 from dbfpy import dbf
 from Dictionary import Dictionary
 from AccrualBalance import AccrualBalance
+# добавил Загвоскин
+from dictFundSource import dictFundSource
+# end of добавил Загвоскин
 
 def hr_accrualBalance(src_path, dst_path, dictionary):
     dst_file = dst_path + 'hr_accrualBalance.csv'
+    # добавил Загвоскин
+    dst_file_fs = dst_path + 'hr_dictFundSource.csv'
+    # end of добавил Загвоскин
     try:
         f = open(dst_file, 'w+')
+        # добавил Загвоскин
+        f_fs = open(dst_file_fs, 'w+')
+        entity_fs = dictFundSource()
+        entity_fs.write_header(f_fs)
+        entity_fs.ID = 1
+        entity_fs.code = 'ДФ'
+        entity_fs.name = 'Вкажіть джерело фінансування для сальдо'
+        entity_fs.write_record(f_fs)
+        # end of добавил Загвоскин
         entity = AccrualBalance()
         entity.write_header(f)
         _read_DBF(src_path + 'RL.DBF', entity, f, dictionary)
@@ -37,7 +52,10 @@ class Balance:
                 entity.employeeNumberID = k
                 entity.periodCalc = v
                 entity.sumFrom, entity.sumTo = self.get((k,v))
-                entity.ID += 1            
+                entity.ID += 1
+                # добавил Загвоскин
+                entity.dictFundSourceID = 1
+                # end of добавил Загвоскин
                 entity.write_record(f)
             except:
                 print 'Error accrual balance tabNum:', entity.employeeNumberID, sys.exc_info()[1]
