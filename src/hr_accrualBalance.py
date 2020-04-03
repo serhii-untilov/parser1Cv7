@@ -7,6 +7,7 @@ from dbfpy import dbf
 from Dictionary import Dictionary
 from AccrualBalance import AccrualBalance
 
+
 def hr_accrualBalance(src_path, dst_path, dictionary):
     dst_file = dst_path + 'hr_accrualBalance.csv'
     try:
@@ -30,18 +31,18 @@ class Balance:
         except:
             return (0,0)
 
-    def write(self, f):
+    def write(self, f, dictionary):
         entity = AccrualBalance()
         for k, v  in self.balance:
             try:
                 entity.employeeNumberID = k
                 entity.periodCalc = v
                 entity.sumFrom, entity.sumTo = self.get((k,v))
-                entity.ID += 1            
+                entity.ID += 1
+                entity.dictFundSourceID = dictionary.getDictFundSourceID('1')
                 entity.write_record(f)
             except:
                 print 'Error accrual balance tabNum:', entity.employeeNumberID, sys.exc_info()[1]
-
 
 
 def _read_DBF(src_file, entity, f, dictionary):
@@ -66,4 +67,4 @@ def _read_DBF(src_file, entity, f, dictionary):
             except:
                 print 'Error accrual balance tabNum:', record['TN'], sys.exc_info()[1]
     dataset.close()
-    balance.write(f)
+    balance.write(f, dictionary)
