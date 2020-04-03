@@ -22,6 +22,7 @@ from src.hr_department import hr_department
 from src.renewalTN import renewalTN
 from src.payElUsed import setPayElUsed
 from src.hr_accrualBalance import hr_accrualBalance
+from src.sia_dictFundSource import sia_dictFundSource
 
 
 DESCRIPTION = '1C v7 parser'
@@ -62,6 +63,7 @@ if __name__ == '__main__':
     hr_employee(namespace.src_path, namespace.dst_path, dictionary)
     setPayElUsed(namespace.src_path, dictionary)
 
+    sia_dictFundSource(namespace.src_path, namespace.dst_path, dictionary)
     hr_dictPosition(namespace.src_path, namespace.dst_path, dictionary)
     hr_department(namespace.src_path, namespace.dst_path, dictionary)
     hr_workSchedule(namespace.src_path, namespace.dst_path)

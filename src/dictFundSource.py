@@ -2,7 +2,7 @@
 import sys
 
 
-class dictFundSource:
+class DictFundSource:
     def __init__(self):
         self.ID = 0
         self.code = 0

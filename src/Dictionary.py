@@ -21,7 +21,18 @@ class Dictionary:
         self.src_path = src_path
         self.dst_path = dst_path
         self.arcMinDate = datetime.date(datetime.now().replace(year= datetime.now().year - ARC_SIZE_YEAR, month=1, day=1))
+        self.DictFundSourceID = {}
         print('Minimal arc date is %s\n' % self.arcMinDate)
+
+    def setDictFundSourceID(self, code, id):
+        self.DictFundSourceID[code] = id
+
+    def getDictFundSourceID(self, code):
+        try:
+            return self.DictFundSourceID[code] and self.DictFundSourceID[code] or 1
+        except:
+            self.DictFundSourceID[code] = 1
+            return 1
 
     def addAccrualSize(self, tabNum):
         self.AccrualSize[tabNum] = 1
