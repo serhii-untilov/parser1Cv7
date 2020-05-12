@@ -41,7 +41,7 @@ def _read_DBF(src_file, accrual, f, dictionary, suffix):
         accrual.taxCode = dictionary.get_TaxCode(accrual.tabNum)
         accrual.employeeNumberID = accrual.tabNum = str(record['TN'])
         accrual.payElID	= dictionary.get_PayElID(code)
-        accrual.paySum = record['SM'] != 0 and str(record['SM']) or ''
+        accrual.paySum = record['SM'] != 0 and str(record['SM']) or '0'
         accrual.days = record['DAYS'] != 0 and str(record['DAYS']) or ''
         accrual.hours = record['HRS'] != 0 and str(record['HRS']) or ''
         accrual.calculateDate = ''	
