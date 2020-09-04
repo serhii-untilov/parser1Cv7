@@ -23,10 +23,11 @@ from src.renewalTN import renewalTN
 from src.payElUsed import setPayElUsed
 from src.hr_accrualBalance import hr_accrualBalance
 from src.sia_dictFundSource import sia_dictFundSource
+from src.hr_accrualFund import hr_accrualFund
 
 
 DESCRIPTION = '1C v7 parser'
-VERSION = '1.3 (17.03.2020)'
+VERSION = '1.4 (04.09.2020)'
 AUTHOR = 'USV'
 
 
@@ -76,5 +77,6 @@ if __name__ == '__main__':
     hr_employeeAccrual(namespace.src_path, namespace.dst_path, dictionary)
     hr_accrual(namespace.src_path, namespace.dst_path, dictionary)
     hr_accrualBalance(namespace.src_path, namespace.dst_path, dictionary)
+    hr_accrualFund(namespace.src_path, namespace.dst_path, dictionary)
 
     renewalTN(namespace.src_path, namespace.dst_path, dictionary) # hr_employeeNumber.csv could be used instead of renewalTN.csv

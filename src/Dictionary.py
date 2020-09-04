@@ -1,6 +1,7 @@
 #!/usr/bin/env python2
 import sys
 from src.PayEl import PayEl
+from src.PayFund import PayFund
 from sets import Set
 from datetime import datetime
 
@@ -12,6 +13,7 @@ class Dictionary:
     def __init__(self, src_path, dst_path):
         self.TaxCode = {}
         self.PayElID = {}
+        self.PayFundID = {}
         self.DepartmentID = {}
         self.DictPositionName = {}
         self.PayElCode = Set()
@@ -108,6 +110,23 @@ class Dictionary:
                 self.set_PayElID(code, ID)
             return ID
 
+    def set_PayFundID(self, cd, payFundID):
+        self.PayFundID[cd] = payFundID
+
+    def get_PayFundID(self, code):
+        try:
+            return self.PayFundID[code] and self.PayFundID[code] or 0
+        except:
+            ID = len(self.PayFundID) + 1                    
+            ID = _append_hr_payFund(ID, code, code, self.src_path, self.dst_path)
+            if (ID == 0):
+                self.error_count += 1
+                print 'Error [' + str(self.error_count) + ']. Not found PayFundCd: ' + code + '.'
+            else:
+                self.set_PayFundID(code, ID)
+            return ID
+
+
 def _append_hr_payEl(ID, code, name, src_path, dst_path):
     dst_file = dst_path + 'hr_payEl.csv'
     try:
@@ -118,6 +137,23 @@ def _append_hr_payEl(ID, code, name, src_path, dst_path):
         payEl.name = name
         payEl.description = name + '(' + code + ')'
         payEl.write_record(f)
+        print 'Append', dst_file, ID, code, name
+        return ID
+    except:
+        print 'Not added', dst_file, sys.exc_info()[1]
+        return 0
+
+
+def _append_hr_payFund(ID, code, name, src_path, dst_path):
+    dst_file = dst_path + 'hr_payFund.csv'
+    try:
+        f = open(dst_file, 'a+')
+        payFund = PayFund()
+        payFund.ID = ID
+        payFund.code = code[:32]
+        payFund.name = name
+        payFund.description = name + '(' + code + ')'
+        payFund.write_record(f)
         print 'Append', dst_file, ID, code, name
         return ID
     except:
